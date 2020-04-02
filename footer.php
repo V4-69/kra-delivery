@@ -28,6 +28,16 @@
                         Доставка по Красноусольску
                     </h6>
                     <div class="mt-3">
+                      <a href="<?php echo esc_url( home_url( '/' )); ?><?php echo "/call"; ?>" class="">
+                        Горячая линия
+                      </a>
+                    </div>
+                    <div class="mt-2">
+                      <a href="<?php echo esc_url( home_url( '/' )); ?><?php echo "/info"; ?>" class="">
+                        Важно знать
+                      </a>
+                    </div>
+                    <div class="mt-2">
                       <a href="<?php echo esc_url( home_url( '/' )); ?><?php echo "/region"; ?>" class="">
                         Населённые пункты
                       </a>
@@ -41,7 +51,26 @@
 
                 <div class="col-md-4 col-6">
                     <h6>
-                        Телефон
+                        Телефон горячей линии
+                    </h6>
+                    <div class="mt-2">
+                        <span class="phone font-weight-bold text-monospace">
+                          <a href="tel:<?php echo $GLOBALS['cgv']['phone_line_link'] ?>" class="">
+                            <?php echo $GLOBALS['cgv']['phone_line'] ?>
+                          </a>
+                        </span>
+                    </div>
+
+                    <div class="">
+                        <span class="phone font-weight-bold text-monospace">
+                          <a href="tel:<?php echo $GLOBALS['cgv']['phone_line_link_mobile'] ?>" class="">
+                            <?php echo $GLOBALS['cgv']['phone_line_mobile'] ?>
+                          </a>
+                        </span>
+                    </div>
+
+                    <h6>
+                        Наш телефон
                     </h6>
                     <div class="mt-2">
                         <span class="phone font-weight-bold text-monospace">

@@ -10,36 +10,46 @@ get_header();
 
   <div class="content menu">
     <div class="container">
+      <div class = "row1 mt-5 mb-5">
+        <h3 class="text-center">
+          Выберете Ваш населённый пункт
+        </h3>
+      </div>
+
       <div class = "row">
 
 <?php
-        $all_region = array(
-          "kra" => array("Красноусольский", "kra.jpg"),
-          "kurort" => array("Село Курорта", "kurort.jpg"),
-          "ozero" => array("Белое озеро",  "empty.png"),
-          "burli" => array("Бурлы",  "empty.png"),
-          "zilim-karanovo" => array("Зилим-Караново",  "empty.png"),
-          "kovardi" => array("Коварды",  "empty.png"),
-          "saitbaba" => array("Саитбаба",  "empty.png"),
-          "tashli" => array("Ташлы",  "empty.png"),
-          "ylukovo" => array("Юлуково",  "empty.png"),
-        );
-        foreach ($all_region as $key_region => $region) {
+      $all_region = get_categories( [
+      	'taxonomy'     => 'category',
+      	'type'         => 'post',
+      	'child_of'     => get_category_by_slug('region')->term_id,
+      	'parent'       => '',
+      	'orderby'      => 'name',
+      	'order'        => 'ASC',
+      	'hide_empty'   => 0,
+      	'hierarchical' => 1,
+      	'exclude'      => '',
+      	'include'      => '',
+      	'number'       => 0,
+      	'pad_counts'   => false,
+      ] );
+
+      foreach ($all_region as $region) {
 ?>
-          <div class="col-xl-3 col-md-4 col-sm-6 py-1 px-1 my-1">
-            <a class="link" href="<?php echo esc_url( home_url( '/' )); ?><?php echo $key_region; ?>">
-              <div class="product py-2 px-2 shadow-sm">
-                <div class="d-flex justify-content-center mt-4">
-                  <img src="<?php echo get_stylesheet_directory_uri().'/img/region/'.$region[1];?>" class="img-shop" alt="Адаптивные изображения">
-                </div>
-                <span class="product-name text-center mt-2">
-                  <h6><?php echo $region[0];?></h6>
-                </span>
+        <div class="col-xl-3 col-md-4 col-sm-6 py-1 px-1 my-1">
+          <a class="link" href="<?php echo esc_url( home_url( '/' )) . 'kind/?region=' . $region->slug ?>">
+            <div class="product py-2 px-2 shadow-sm">
+              <div class="d-flex justify-content-center mt-4">
+                <img src="<?php echo get_stylesheet_directory_uri().'/img/region/' . $region->slug . '.jpg';?>" class="img-shop" alt="Адаптивные изображения">
               </div>
-            </a>
-          </div>
+              <span class="product-name text-center mt-2">
+                <h6><?php echo $region->name;?></h6>
+              </span>
+            </div>
+          </a>
+        </div>
 <?php
-        }
+      }
 ?>
 
       </div>

@@ -1,6 +1,6 @@
 <?php
 /**
-* Template Name: Menu
+* Template Name: Menu1
 **/
 
 get_header();
@@ -111,19 +111,124 @@ get_header();
 
     </div>
   </div>
+
+  <h4 class="text-center mt-5 pb-3">
+    Ассортимент
+  </h4>
+
+        <div class="container home-menu1 px-xl-5">
+            <div class="product-range1 rounded mx-xl-5">
+                <div class="container-xl">
+                    <nav>
+                        <div class="nav nav-tabs row d-flex justify-content-center align-items-center" id="nav-tab" role="tablist">
+<?php
+                            $category_p = '';
+                            if (isset($_GET['category'])) {
+                              $category_p = $_GET['category'];
+                            }
+                            $i = 0;
+                            foreach ($all_categories as $cat) {
+                                $thumbnail_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
+                                $image = wp_get_attachment_url( $thumbnail_id );
+                                $name = $cat->name;
+                                $slug = $cat->slug;
+                                $selected = 'false';
+                                $active = '';
+                                if((($i == 0) && ($category_p == '')) || ($slug == $category_p)){
+                                    $selected = 'true';
+                                    $active = ' active';
+                                }
+                                $i++;
+?>
+                                <a class="category-one1 nav-item nav-link<?php echo $active;?>" id="nav-<?php echo $slug;?>-tab" data-toggle="tab" href="#nav-<?php echo $slug;?>" role="tab" aria-controls="nav-<?php echo $slug;?>" aria-selected="<?php echo $selected;?>">
+                                    <div class="col-auto">
+
+                                        <span class = "category-name d-flex align-items-center justify-content-center">
+                                            <?php echo $name;?>
+                                        </span>
+                                    </div>
+                                </a>
+<?php
+                            }
+?>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="tab-content" id="nav-tabContent">
 <?php
 
-#  $page = get_posts( array( 'name' => $magazin_cat_slug ) );
-$page = get_page_by_path( $magazin_cat_slug );
-echo $magazin_cat_slug;
+            $iCat = 0;
+            foreach ($all_categories as $cat) {
 
-if ( $page )
-{
-    echo get_the_content( $page );
-}
+                $slug = $cat->slug;
+                $showActive = '';
+                if((($iCat == 0) && ($category_p == '')) || ($slug == $category_p)){
+                    $showActive = ' show active';
+                }
+                $iCat++;
+
 
 ?>
 
+                <div class="tab-pane fade<?php echo $showActive;?>" id="nav-<?php echo $slug;?>" role="tabpanel" aria-labelledby="nav-<?php echo $slug;?>-tab">
+                    <div class="products mt-5">
+                        <div class = "row">
+<?php
+
+                        $products = wc_get_products(array(
+                            'category'  => array($cat->slug),
+                            'showposts' => 50,
+                        ));
+                        foreach ( $products as $product ) {
+                            $productTitle = $product->get_title();
+                            $productDescription = $product->get_short_description();
+                            $productPrice = $product->get_price();
+                            $productImage = wp_get_attachment_image_src( get_post_thumbnail_id( $product->post->ID ), 'single-post-thumbnail' )[0];
+
+?>
+                            <div class="col-xl-3 col-md-4 col-sm-6 py-1 px-1 my-1">
+                                <a class="link" href="<?php echo $product->get_permalink();?>">
+                                    <div class="product py-2 px-2 shadow-sm">
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <img src="<?php echo $productImage;?>" class="img-fluid px-4" alt="Адаптивные изображения">
+                                        </div>
+                                        <span class="product-name text-center mt-2">
+                                          <h6><?php echo $productTitle;?></h6>
+                                        </span>
+                                        <span class="product-description px-2 text-justify mt-3 text-break overflow-hidden">
+                                            <?php echo $productDescription;?>
+                                        </span>
+                                        <div class="d-flex justify-content-between px-2 mt-2">
+                                            <span>
+                                                <?php echo $productPrice;?>
+                                                <i class="fas fa-ruble-sign"></i>
+                                            </span>
+                                            <span>
+                                                Подробнее
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+<?php
+                        }
+?>
+
+                        </div>
+                    </div>
+                </div>
+
+<?php
+            }
+?>
+            </div>
+        </div>
+</div>
 <?php
 } else {
 ?>

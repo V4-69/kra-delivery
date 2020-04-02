@@ -116,7 +116,7 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover, body:not(.t
 }
 
 span.header-name {
-  color: #f9c85b;
+  color: #ba3525;
   font-weight: 800;
   font-size: 20px;
   line-height: 18px;
@@ -124,7 +124,7 @@ span.header-name {
 }
 
 span.header-description {
-  color: #a16e63;
+  color: #035191;
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
@@ -820,4 +820,13 @@ img.post-img {
 
 }
 
+/******************************************************* SINGLE END *************************************************/
+
+/******************************************************* SINGLE SHOP *************************************************/
+
+.img-shop-single {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
 /******************************************************* SINGLE END *************************************************/
